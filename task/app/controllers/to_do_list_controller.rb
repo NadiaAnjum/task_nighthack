@@ -4,7 +4,19 @@ class ToDoListController < ApplicationController
 
 	def index
 		
-		@to_do_list = ToDoList.all.order("id")
+		if params[:all]
+			
+			@to_do_list = ToDoList.all.order("id")
+			
+		elsif params[:latest]
+		
+			@to_do_list = ToDoList.where("created_at > ?", params[:latest]).order("id")
+		
+		elsif params[:create_date]
+		
+			@to_do_list = ToDoList.maximum("created_at")
+		
+		end
 		
 		render json: {status: 'SUCCESS', message: 'ToDo List Details', data: @to_do_list}, status: :ok
 		

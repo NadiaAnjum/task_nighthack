@@ -18,7 +18,9 @@ export class UserService {
 
   private userDetailUrl = '/get_user/get_user_details';
   private postData = '/to_do_list';
-  private getData = '/to_do_list';
+  private getData = '/to_do_list/?all=all';
+  private getMaxDate = '/to_do_list/?create_date=all';
+  private getLatestData = '/to_do_list/?latest=';
   private putData = '/to_do_list/';
 
   private handleError<T> (operation = 'operation', result?: T) {
@@ -64,4 +66,21 @@ export class UserService {
         catchError(this.handleError('getToDolist', []))
       );
   }
+
+  getLatestlist(param_val): Observable<any[]> {
+    return this.http.get<any[]>(this.getLatestData + param_val)
+      .pipe(
+        tap(todolist => console.log('fetched latest list')),
+        catchError(this.handleError('getLatestlist', []))
+      );
+  }
+
+  getMaxmDate(): Observable<any[]> {
+    return this.http.get<any[]>(this.getMaxDate)
+      .pipe(
+        tap(todolist => console.log('fetched Max Date')),
+        catchError(this.handleError('getMaxmDate', []))
+      );
+  }
+
 }
