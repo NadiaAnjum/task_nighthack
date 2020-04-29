@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/users/sign_out">Logout</a>
+    </li>
+  </ul>
+</nav>
+<div class="jumbotron text-center">
+    <h2>Welcome User</h2>
+</div>
+<div class="form-row was-validated">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let list of toDoList">
+          <td (click)="showModal(list.id, list.comments)">{{list.task}}</td>
+          <td>{{list.comments}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-2"></div>
+</div>
+<div class="popup" *ngIf="!isShowModal" fxLayout="column" fxLayoutAlign="center center" style="width: 59vw;">
+  <div class="form-row was-validated">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div class="form-group">
+        <label for="cmmt">Comment:</label>
+        <textarea class="form-control" rows="5" [(ngModel)]="comment"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="saveComment()">Save</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class CrawlInfo < ApplicationRecord
+end
