@@ -27,6 +27,7 @@ export class AppComponent {
 
         if(out_data)
         {
+          this.userService.setUserEmail(out_data['email']);
           this.router.navigate(['/user-page']);
         }
         else

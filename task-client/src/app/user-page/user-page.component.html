@@ -3,11 +3,14 @@
     <li class="nav-item">
       <a class="nav-link" href="/users/sign_out">Logout</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="createTask()">Create Task</a>
+    </li>
   </ul>
+  <div class="welcome-header">
+      <h2>Welcome User</h2>
+  </div>
 </nav>
-<div class="jumbotron text-center">
-    <h2>Welcome User</h2>
-</div>
 <div class="form-row was-validated">
   <div class="col-2"></div>
   <div class="col-8">
@@ -28,19 +31,43 @@
   </div>
   <div class="col-2"></div>
 </div>
-<div class="popup" *ngIf="!isShowModal" fxLayout="column" fxLayoutAlign="center center" style="width: 59vw;">
-  <div class="form-row was-validated">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <div class="form-group">
-        <label for="cmmt">Comment:</label>
-        <textarea class="form-control" rows="5" [(ngModel)]="comment"></textarea>
+<div class="popup" *ngIf="!isShowModal" fxLayout="column" fxLayoutAlign="center center" style="width: 40vw;">
+  <div class="bg-info">
+    <div class="form-row was-validated">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div class="form-group">
+          <label for="cmmt">Comment:</label>
+          <textarea class="form-control" rows="5" [(ngModel)]="comment"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="saveComment()">Save</button>
+          <button type="button" class="btn btn-danger m-1" (click)="closeModal()">Cancel</button>
+        </div>
       </div>
-      <div class="form-group">
-        <button type="button" class="btn btn-primary" (click)="saveComment()">Save</button>
-        <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
-      </div>
+      <div class="col-2"></div>
     </div>
-    <div class="col-2"></div>
+  </div>
+</div>
+<div class="popup" *ngIf="!isCreateModal" fxLayout="column" fxLayoutAlign="center center" style="width: 40vw;">
+  <div class="bg-info">
+    <div class="form-row was-validated">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div class="form-group">
+          <label for="tsk">Task:</label>
+          <input type="text" class="form-control" [(ngModel)]="task_name" required>
+        </div>
+        <div class="form-group">
+          <label for="dsp">Description:</label>
+          <textarea class="form-control" rows="5" [(ngModel)]="task_dsp"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="addTask()">Create Task</button>
+          <button type="button" class="btn btn-danger m-1" (click)="closeTask()">Cancel</button>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
   </div>
 </div>
