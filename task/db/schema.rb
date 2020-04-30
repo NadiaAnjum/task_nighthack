@@ -10,12 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_112509) do
+ActiveRecord::Schema.define(version: 2020_04_30_142743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "duals", primary_key: "tmp", id: :string, force: :cascade do |t|
+  end
+
+  create_table "to_do_dumps", force: :cascade do |t|
+    t.integer "task_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "to_do_lists", force: :cascade do |t|
@@ -25,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_04_29_112509) do
     t.string "start_date"
     t.string "end_date"
     t.string "comments"
+    t.string "assigned_to"
     t.string "status", default: "Active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,4 +56,5 @@ ActiveRecord::Schema.define(version: 2020_04_29_112509) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "to_do_dumps", "to_do_lists", column: "task_id"
 end

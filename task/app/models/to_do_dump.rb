@@ -1,0 +1,2 @@
+class ToDoDump < ApplicationRecord
+end

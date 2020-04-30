@@ -7,7 +7,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: taskv1r4
+  database: taskv1r5
   pool: 5
   username: postgres
   password: postgres

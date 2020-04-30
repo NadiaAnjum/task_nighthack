@@ -14,17 +14,37 @@
 <div class="form-row was-validated">
   <div class="col-2"></div>
   <div class="col-8">
+    <div class="form-group">
+      <button class="btn btn-success mt-1" type="submit" (click)="assignTask()">Assign Task</button>
+    </div>
+   </div>
+   <div class="col-2"></div>
+</div>
+<div class="form-row was-validated">
+  <div class="col-2"></div>
+  <div class="col-8">
     <table class="table table-hover">
       <thead>
         <tr>
+          <th>Select</th>
           <th>Task</th>
           <th>Comment</th>
+          <th>Assigned To</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let list of toDoList">
+          <td>
+            <div class="form-check chk-align">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="chk_value[list.id]">
+              </label>
+            </div>
+          </td>
           <td (click)="showModal(list.id, list.comments)">{{list.task}}</td>
           <td>{{list.comments}}</td>
+          <td>{{list.assigned_to}}</td>
+          <!--<td><div class="btn btn-success btn-sm">✓</div></td>-->
         </tr>
       </tbody>
     </table>
@@ -65,6 +85,27 @@
         <div class="form-group">
           <button type="button" class="btn btn-primary" (click)="addTask()">Create Task</button>
           <button type="button" class="btn btn-danger m-1" (click)="closeTask()">Cancel</button>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+</div>
+<div class="popup" *ngIf="!isTaskModal" fxLayout="column" fxLayoutAlign="center center" style="width: 40vw;">
+  <div class="bg-info">
+    <div class="form-row was-validated">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div class="form-group">
+          <select [(ngModel)]="sel_user" class="sel-info">
+        		<option *ngFor="let usr of userList" [value]="usr.email">
+        			{{usr.email}}
+        		</option>
+        	</select>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="addAssignTask()">Assign Task</button>
+          <button type="button" class="btn btn-danger m-1" (click)="closeAssignTask()">Cancel</button>
         </div>
       </div>
       <div class="col-2"></div>

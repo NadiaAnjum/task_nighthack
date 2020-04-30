@@ -9,4 +9,13 @@ class GetUserController < ApplicationController
 		render json: {status: 'SUCCESS', message: 'user details', data: @user}, status: :ok
 		
 	end
+	
+	def get_users		
+		
+		@user = User.where("email not in (?)", current_user['email'])
+
+		render json: {status: 'SUCCESS', message: 'user details', data: @user}, status: :ok
+		
+	end
+	
 end 

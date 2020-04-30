@@ -10,11 +10,11 @@ class ToDoListController < ApplicationController
 			
 		elsif params[:latest]
 		
-			@to_do_list = ToDoList.where("created_at > ?", params[:latest]).order("id")
+			@to_do_list = ToDoList.where("to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') > ?", params[:latest]).order("id")
 		
 		elsif params[:create_date]
 		
-			@to_do_list = ToDoList.maximum("created_at")
+			@to_do_list = ToDoList.maximum("to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS')")
 		
 		end
 		
@@ -55,6 +55,26 @@ class ToDoListController < ApplicationController
 		end
 	end
 	
+	def batch_update
+		
+		batch_upd_params['to_do_list'].each do |lists|
+			
+			@to_do_list = ToDoList.find(lists[:id])
+
+			if @to_do_list.update_attributes(lists)
+
+			else
+
+				render json:{status: 'ERROR', message: 'Error while updating ToDo List', data: @to_do_list.errors},
+				status: :unprocessable_entity
+			end
+		
+		end
+		
+		render json: {status: 'SUCCESS', message: 'ToDo List updated', data: @to_do_list}, status: :ok
+		
+	end
+	
 	def destroy
 	
 		@to_do_list = ToDoList.find(params[:id])
@@ -85,7 +105,20 @@ class ToDoListController < ApplicationController
 						:start_date,
 						:end_date,
 						:comments,
+						:assigned_to,
 						:status)
 	end
+	
+	def batch_upd_params
+	
+		params.permit( :to_do_list => [	:id,
+										:task,
+										:description,
+										:start_date,
+										:end_date,
+										:comments,
+										:assigned_to,
+										:status])
+	end	
 	
 end
